@@ -103,7 +103,7 @@ const checkWin = () => {
     }
 
     //check for win
-    if(counterShow === counterletters) {
+    if(counterShow === counterLetters) {
         //wait for animation to complete
         setTimeout(function() {
             overlay.style.display = 'flex';
@@ -136,9 +136,30 @@ btn__reset.addEventListener('click', () => {
 })
 
 //listen for the onscreen keyboard to be clicked
-qwerty.addEventListener('click', () => {
+qwerty.addEventListener('click', (e) => {
+    if(e.target.tagName === 'BUTTON') {
+        let character = e.target.textContent;
+        e.target.setAttribute('disabled', '');
+        e.target.classList.add('chosen');
+        checkLetter(character)
+            if(letterFound === character) {
+                checkWin();
+            } else {
+                //remove a try
+                //increment guessesMissed
+                guessesMissed++;
 
-})
+                //update DOM - remove try
+                const scoreboard = document.querySelector('#scoreboard').firstElementChild;
+
+                //get all list items with class 'tries'
+                const tries = document.querySelectorAll('.tries');
+                scoreboard.removeChild(tries[0]);
+
+                checkWin();
+            }
+        }
+});
 
 const reload = () => {
     window.location.reload();
