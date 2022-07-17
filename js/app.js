@@ -4,7 +4,7 @@ const phrase = document.getElementById('phrase');
 const overlay = document.getElementById('overlay');
 const btn__reset = document.getElementById('start');
 const phrasesList = [
-    '',
+    'demon slayer',
     'attack on titan',
     'how a realist hero rebuilt the kingdom',
     'code geass',

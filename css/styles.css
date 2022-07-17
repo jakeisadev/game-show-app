@@ -50,9 +50,13 @@ button {
   font-size: var(--font-size-medium);
   background-color: var(--color-keys-light);
   border-radius: 5px;
-  -webkit-transition: var(--transition);
-  -o-transition: var(--transition);
+  transition-property: .2s;
   transition: var(--transition);
+}
+
+button:hover {
+  background-color: #D94545;
+  cursor: pointer;
 }
 
 .main-container {
