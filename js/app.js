@@ -41,7 +41,6 @@ function addPhraseToDisplay(arr) {
     // loop through array of characters
     for (const char of arr) {
       const letter = arr[char];
-      console.log(char);
       // For each character, create a list item
       const item = document.createElement('li');
       // Put each character inside the list item
@@ -63,14 +62,72 @@ addPhraseToDisplay(splitRandomPhrase);
 
 //check if a letter is in the phrase
 const checkLetter = (buttonClicked) => { 
-  
+  for(let i = 0; i < li.length; i++) {
+    //a letter is chosen
+    if(li[i].classList.contains('letter')) {
+        //check textContent to see if there's a match
+        if(li[i].textContent === guessBtn) {
+            //add 'show' class
+            li[i].classList.add('show');
+            //save the correct guess
+            letterFound = guessBtn;
+        }
+    }
+  }
+  //return matching letter; if not, return null for incorrect
+  return letterFound;
 }
 
 //targets button clicked then changs it to different color
 
 //check if the game has been won or lost
 const checkWin = () => {
+    //intialize counters
+    //counter 1 - 'show' class
+    const listItemArray = document.querySelector('ul').children;
+    
+    let counterShow = 0;
+    for(let i = 0; i < listItemArray.length; i++) {
+        //count the number of letter (exclude spaces) in the phrase
+        if(listItemArray[i].classList.contains('show')) {
+            counterShow += 1;
+        }
+    }
 
+    //counter 2 - 'letter' class
+    let counterLetters = 0;
+    for(let i = 0; i < listItemArray.length; i++) {
+        if(listItemArray[i].classList.contains('letter')) {
+            counterLetters += 1;
+        }
+    }
+
+    //check for win
+    if(counterShow === counterletters) {
+        //wait for animation to complete
+        setTimeout(function() {
+            overlay.style.display = 'flex';
+            overlay.classList.add('win');
+            overlay.appendChild('win');
+        }, 2000);
+    } else {
+        //keep playing
+        if(guessesMissed === 5) {
+            //give animation time to finish
+            //disable buttons though
+            const buttons = document.querySelectorAll('#qwerty button');
+            for(let i = 0; i < buttons.length; i ++) {
+                buttons[i].setAttribute('disabled', '');
+            }
+
+            setTimeout(function() {
+                //otherwise, if number misses is equal to or greater than 5, show lose class
+                overlay.style.display = 'flex';
+                overlay.classList.add('lose');
+                overlay.appendChild(lose);
+            }, 2000);
+        }
+    }
 }
 
 //listen for the start game button to be pressed
