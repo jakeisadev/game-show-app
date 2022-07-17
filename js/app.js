@@ -66,11 +66,11 @@ const checkLetter = (buttonClicked) => {
     //a letter is chosen
     if(li[i].classList.contains('letter')) {
         //check textContent to see if there's a match
-        if(li[i].textContent === guessBtn) {
+        if(li[i].textContent === buttonClicked) {
             //add 'show' class
             li[i].classList.add('show');
             //save the correct guess
-            letterFound = guessBtn;
+            letterFound = buttonClicked;
         }
     }
   }
@@ -82,53 +82,69 @@ const checkLetter = (buttonClicked) => {
 
 //check if the game has been won or lost
 const checkWin = () => {
-    //intialize counters
-    //counter 1 - 'show' class
+    // Initialize the counters
+    // Counter 1 - 'show' class:
     const listItemArray = document.querySelector('ul').children;
-    
+  
     let counterShow = 0;
-    for(let i = 0; i < listItemArray.length; i++) {
-        //count the number of letter (exclude spaces) in the phrase
-        if(listItemArray[i].classList.contains('show')) {
-            counterShow += 1;
-        }
+    for (let i = 0; i < listItemArray.length; i++) {
+      // check for the 'show' class
+      if(listItemArray[i].classList.contains('show')) {
+        counterShow += 1;
+      }
     }
-
-    //counter 2 - 'letter' class
+  
+  // Counter 2 - 'letter' class:
     let counterLetters = 0;
-    for(let i = 0; i < listItemArray.length; i++) {
-        if(listItemArray[i].classList.contains('letter')) {
-            counterLetters += 1;
-        }
+    for (let i = 0; i < listItemArray.length; i++) {
+      // count the number of letters (exclude spaces) in the phrase
+      if(listItemArray[i].classList.contains('letter')) {
+        counterLetters += 1;
+      }
     }
-
-    //check for win
-    if(counterShow === counterLetters) {
-        //wait for animation to complete
-        setTimeout(function() {
-            overlay.style.display = 'flex';
-            overlay.classList.add('win');
-            overlay.appendChild('win');
+    // console.log(guessesMissed);
+  
+      // Check for a win
+      if ( counterShow === counterLetters ) {
+  
+        // Wait for the animation to complete
+        setTimeout(function(){
+          // Display win overlay
+          overlay.style.display = 'flex';
+          overlay.classList.add('win');
+          overlay.appendChild(win);
         }, 2000);
-    } else {
-        //keep playing
-        if(guessesMissed === 5) {
-            //give animation time to finish
-            //disable buttons though
-            const buttons = document.querySelectorAll('#qwerty button');
-            for(let i = 0; i < buttons.length; i ++) {
+  
+  
+      } else {
+          // keep playing
+          // console.log('checking to see if you won...');
+          // console.log(guessesMissed);
+  
+            if ( guessesMissed < 5 ) {
+                // keep playing
+                // console.log('letters shown: ' + counterShow);
+                // console.log('letters in phrase: ' + counterLetters);
+  
+            } else if (guessesMissed === 5) {
+  
+              // Give animation time to finish
+              // Disable the rest of the buttons in meantime
+              const buttons = document.querySelectorAll('#qwerty button');
+              for (let i = 0; i < buttons.length; i++) {
                 buttons[i].setAttribute('disabled', '');
-            }
-
-            setTimeout(function() {
-                //otherwise, if number misses is equal to or greater than 5, show lose class
+              }
+  
+              setTimeout(function(){
+                // Otherwise, if the number of misses is equal to or greater than 5, show the overlay screen with the “lose” class
                 overlay.style.display = 'flex';
                 overlay.classList.add('lose');
                 overlay.appendChild(lose);
-            }, 2000);
-        }
-    }
-}
+              }, 2000);
+  
+            }
+      }
+  }
 
 //listen for the start game button to be pressed
 btn__reset.addEventListener('click', () => {
@@ -136,30 +152,33 @@ btn__reset.addEventListener('click', () => {
 })
 
 //listen for the onscreen keyboard to be clicked
-qwerty.addEventListener('click', (e) => {
-    if(e.target.tagName === 'BUTTON') {
-        let character = e.target.textContent;
-        e.target.setAttribute('disabled', '');
-        e.target.classList.add('chosen');
-        checkLetter(character)
-            if(letterFound === character) {
-                checkWin();
-            } else {
-                //remove a try
-                //increment guessesMissed
-                guessesMissed++;
+qwerty.addEventListener('click', function(evt){
 
-                //update DOM - remove try
-                const scoreboard = document.querySelector('#scoreboard').firstElementChild;
-
-                //get all list items with class 'tries'
-                const tries = document.querySelectorAll('.tries');
-                scoreboard.removeChild(tries[0]);
-
-                checkWin();
-            }
-        }
-});
+    if (evt.target.tagName === 'BUTTON') {
+      let character = evt.target.textContent;
+      evt.target.setAttribute('disabled', '');
+      evt.target.classList.add('chosen');
+      checkLetter(character);
+      if (letterFound === character) {
+        // console.log('good job!');
+        checkWin();
+      } else {
+        // remove a try
+        // 1: increment the guessesMissed variable
+        guessesMissed++;
+  
+        // 2: update the DOM - remove a try
+        const scoreboard = document.querySelector('#scoreboard').firstElementChild;
+  
+        // get all list items with class 'tries'
+        const tries = document.querySelectorAll('.tries');
+        scoreboard.removeChild( tries[0] );
+  
+        checkWin();
+      }
+    }
+  
+  });
 
 const reload = () => {
     window.location.reload();
