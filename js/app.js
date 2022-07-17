@@ -37,10 +37,11 @@ const getRandomPhraseArray = arr => {
 const splitRandomPhrase = getRandomPhraseArray(phrasesList); //array of letters gets captured by a variable
 
 //adds the letters of a string to the display
-function addPhraseToDisplay(phrase) {
+function addPhraseToDisplay(arr) {
     // loop through array of characters
-    for (const char of phrasesList) {
-      const letter = phrasesList[char];
+    for (const char of arr) {
+      const letter = arr[char];
+      console.log(char);
       // For each character, create a list item
       const item = document.createElement('li');
       // Put each character inside the list item
@@ -58,7 +59,7 @@ function addPhraseToDisplay(phrase) {
     }
   }
 
-addPhraseToDisplay(phrasesList);
+addPhraseToDisplay(splitRandomPhrase);
 
 //check if a letter is in the phrase
 const checkLetter = (buttonClicked) => { 
