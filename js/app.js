@@ -14,6 +14,7 @@ const phrasesList = [
     'hunter x hunter'
 ];
 let missed = 0;
+let letterFound = 0;
 
 const win = document.createElement('p');
 win.classList.add('message');
@@ -23,7 +24,7 @@ const lose = document.createElement('p');
 lose.classList.add('message');
 lose.textContent = 'You Lost. Play again?';
 
-let guessesMissed, letterFound;
+// let missed, letterFound;
 
 const randomNumber = () => Math.floor(Math.random() * 5);
 //return a random phrase from an array
@@ -62,11 +63,13 @@ addPhraseToDisplay(splitRandomPhrase);
 
 //check if a letter is in the phrase
 const checkLetter = (buttonClicked) => { 
+  console.log('you clicked a button, yay!');
   for(let i = 0; i < li.length; i++) {
     //a letter is chosen
     if(li[i].classList.contains('letter')) {
         //check textContent to see if there's a match
         if(li[i].textContent === buttonClicked) {
+          console.log('you are right! A green button should show now');
             //add 'show' class
             li[i].classList.add('show');
             //save the correct guess
@@ -78,7 +81,7 @@ const checkLetter = (buttonClicked) => {
   return letterFound;
 }
 
-//targets button clicked then changs it to different color
+//targets button clicked then changes it to different color
 
 //check if the game has been won or lost
 const checkWin = () => {
@@ -102,7 +105,7 @@ const checkWin = () => {
         counterLetters += 1;
       }
     }
-    // console.log(guessesMissed);
+    // console.log(missed);
   
       // Check for a win
       if ( counterShow === counterLetters ) {
@@ -113,20 +116,19 @@ const checkWin = () => {
           overlay.style.display = 'flex';
           overlay.classList.add('win');
           overlay.appendChild(win);
-        }, 2000);
+        }, 700);
   
   
       } else {
           // keep playing
           // console.log('checking to see if you won...');
-          // console.log(guessesMissed);
   
-            if ( guessesMissed < 5 ) {
+            if ( missed < 5 ) {
                 // keep playing
                 // console.log('letters shown: ' + counterShow);
                 // console.log('letters in phrase: ' + counterLetters);
   
-            } else if (guessesMissed === 5) {
+            } else if (missed === 5) {
   
               // Give animation time to finish
               // Disable the rest of the buttons in meantime
@@ -140,7 +142,7 @@ const checkWin = () => {
                 overlay.style.display = 'flex';
                 overlay.classList.add('lose');
                 overlay.appendChild(lose);
-              }, 2000);
+              }, 700);
   
             }
       }
@@ -164,15 +166,15 @@ qwerty.addEventListener('click', function(evt){
         checkWin();
       } else {
         // remove a try
-        // 1: increment the guessesMissed variable
-        guessesMissed++;
+        // 1: increment the missed variable
+        missed++;
   
         // 2: update the DOM - remove a try
         const scoreboard = document.querySelector('#scoreboard').firstElementChild;
   
         // get all list items with class 'tries'
         const tries = document.querySelectorAll('.tries');
-        scoreboard.removeChild( tries[0] );
+        scoreboard.removeChild(tries[0]);
   
         checkWin();
       }
