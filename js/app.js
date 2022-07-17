@@ -3,6 +3,9 @@ const qwerty = document.getElementById('qwerty');
 const phrase = document.getElementById('phrase');
 const overlay = document.getElementById('overlay');
 const btn__reset = document.getElementById('start');
+
+const ul = phrase.firstElementChild;
+const li = ul.children;   // letters in the phrase
 const phrasesList = [
     'demon slayer',
     'attack on titan',
@@ -34,24 +37,28 @@ const getRandomPhraseArray = arr => {
 const splitRandomPhrase = getRandomPhraseArray(phrasesList); //array of letters gets captured by a variable
 
 //adds the letters of a string to the display
-const addPhraseToDisplay = (arr) => {
-     // loop through array of characters
-    for(let i = 0; i < arr.legnth; i++) {
-        const letter = arr[i];
-        //for each character, create a list item
-        const item = document.createElement('li');
-        //put each character inside the list item
-        item.textContent = letter;
-        //add appropriate class to each item
-        if(letter !== '') {
-            item.className = 'letter';
-        } else {
-            item.className = 'space';
-        }
-        //append the list item to the DOM(#phrase ul)
-        ul.appendChild(item);
+function addPhraseToDisplay(phrase) {
+    // loop through array of characters
+    for (const char of phrasesList) {
+      const letter = phrasesList[char];
+      // For each character, create a list item
+      const item = document.createElement('li');
+      // Put each character inside the list item
+      item.textContent = letter;
+  
+      // Add the appropriate class to the list items
+      if (letter !== " ") {
+        item.className = 'letter';
+      } else {
+        item.className = 'space';
+      }
+  
+      // Append the list item to the DOM(#phrase ul)
+      ul.appendChild(item);
     }
-}
+  }
+
+addPhraseToDisplay(phrasesList);
 
 //check if a letter is in the phrase
 const checkLetter = (buttonClicked) => { 
