@@ -1,3 +1,4 @@
+//global variables
 const qwerty = document.getElementById('qwerty');
 const phrase = document.getElementById('phrase');
 const overlay = document.getElementById('overlay');
@@ -24,7 +25,9 @@ let guessesMissed, letterFound;
 const randomNumber = () => Math.floor(Math.random() * 5);
 //return a random phrase from an array
 const getRandomPhraseArray = arr => {
+    //sets randomArray to one of the phrases
     let randomArray = arr[randomNumber()];
+    //splits the chosen array into separate letters and spaces for use
     return splitArray = randomArray.split([,]);
 }
 
@@ -33,41 +36,26 @@ const splitRandomPhrase = getRandomPhraseArray(phrasesList); //array of letters 
 //adds the letters of a string to the display
 const addPhraseToDisplay = (arr) => {
      // loop through array of characters
-  for (let i = 0; i < arr.length; i++) {
-    const letter = arr[i];
-    // For each character, create a list item
-    const item = document.createElement('li');
-    // Put each character inside the list item
-    item.textContent = letter;
-
-    // Add the appropriate class to the list items
-    if (letter !== " ") {
-      item.className = 'letter';
-    } else {
-      item.className = 'space';
+    for(let i = 0; i < arr.legnth; i++) {
+        const letter = arr[i];
+        //for each character, create a list item
+        const item = document.createElement('li');
+        //put each character inside the list item
+        item.textContent = letter;
+        //add appropriate class to each item
+        if(letter !== '') {
+            item.className = 'letter';
+        } else {
+            item.className = 'space';
+        }
+        //append the list item to the DOM(#phrase ul)
+        ul.appendChild(item);
     }
-
-    // Append the list item to the DOM (specifically to the #phrase ul )
-    ul.appendChild(item);
-  }
 }
 
 //check if a letter is in the phrase
 const checkLetter = (buttonClicked) => { //Removes
-      // Loop through the characters in the phrase
-  for (let i = 0; i < li.length; i++) {
-    // Make sure a letter is chosen
-    if ( li[i].classList.contains('letter') ) {
-
-        // Check the textContent of the button to see if there's a match
-        if (li[i].textContent === guessBtn) {
-          // Add the 'show' class
-          li[i].classList.add('show');
-          // Save the correct guess
-          letterFound = guessBtn;
-        }
-    }
-  }
+  
 }
 
 //targets button clicked then changs it to different color
