@@ -48,7 +48,7 @@ function addPhraseToDisplay(arr) {
       item.textContent = letter;
   
       // Add the appropriate class to the list items
-      if (letter !== " ") {
+      if (char !== " ") {
         item.className = 'letter';
       } else {
         item.className = 'space';
