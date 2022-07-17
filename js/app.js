@@ -4,9 +4,9 @@ const phrase = document.getElementById('phrase');
 const overlay = document.getElementById('overlay');
 const btn__reset = document.getElementById('start');
 const phrasesList = [
-    'it do be like that sometimes',
-    'only on wednesdays',
-    'peaky blinders',
+    '',
+    'attack on titan',
+    'how a realist hero rebuilt the kingdom',
     'code geass',
     'hunter x hunter'
 ];
@@ -54,7 +54,7 @@ const addPhraseToDisplay = (arr) => {
 }
 
 //check if a letter is in the phrase
-const checkLetter = (buttonClicked) => { //Removes
+const checkLetter = (buttonClicked) => { 
   
 }
 
