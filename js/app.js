@@ -41,7 +41,7 @@ const splitRandomPhrase = getRandomPhraseArray(phrasesList); //array of letters 
 function addPhraseToDisplay(arr) {
     // loop through array of characters
     for (const char of arr) {
-      const letter = arr[char];
+      const letter = char;
       // For each character, create a list item
       const item = document.createElement('li');
       // Put each character inside the list item
@@ -162,7 +162,7 @@ qwerty.addEventListener('click', function(evt){
       evt.target.classList.add('chosen');
       checkLetter(character);
       if (letterFound === character) {
-        // console.log('good job!');
+        console.log(`${letterFound}`);
         checkWin();
       } else {
         // remove a try
