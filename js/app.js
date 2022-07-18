@@ -63,13 +63,14 @@ addPhraseToDisplay(splitRandomPhrase);
 
 //check if a letter is in the phrase
 const checkLetter = (buttonClicked) => { 
-  console.log('you clicked a button, yay!');
+  // console.log('you clicked a button, yay!');
   for(let i = 0; i < li.length; i++) {
     //a letter is chosen
     if(li[i].classList.contains('letter')) {
         //check textContent to see if there's a match
+        // console.log(li[i].textContent);
         if(li[i].textContent === buttonClicked) {
-          console.log('you are right! A green button should show now');
+          // console.log('you are right! A green button should show now');
             //add 'show' class
             li[i].classList.add('show');
             //save the correct guess
@@ -162,7 +163,7 @@ qwerty.addEventListener('click', function(evt){
       evt.target.classList.add('chosen');
       checkLetter(character);
       if (letterFound === character) {
-        console.log(`${letterFound}`);
+        // console.log(`${letterFound}`);
         checkWin();
       } else {
         // remove a try
@@ -181,6 +182,48 @@ qwerty.addEventListener('click', function(evt){
     }
   
   });
+
+  const init = () => {
+    missed = 0;
+    // reset hearts
+    const scoreboard = document.querySelector('#scoreboard').firstElementChild;
+    const old = document.querySelectorAll('.tries');
+    // clear screen
+    for (let i = 0; i < old.length; i++) {
+      scoreboard.removeChild(old[i]);
+    }
+  
+    const listItem = document.createElement('li');
+    const img = document.createElement('img');
+    listItem.classList.add('tries');
+    img.style.repeat = 'norepeat';
+    img.src = "images/liveHeart.png";
+    listItem.appendChild(img);
+  
+    for (let i = 0; i < 5; i++) {
+      scoreboard.appendChild(listItem.cloneNode(true));
+    }
+  
+    // Reset the keyboard
+    const buttons = document.querySelectorAll('button');
+    for (let i = 0; i < buttons.length; i++){
+      buttons[i].removeAttribute('disabled');
+      buttons[i].removeAttribute('class', 'chosen');
+    }
+  
+    // Remove the old phrase
+    const oldLetters = ul.querySelectorAll('li');
+    // Clear old phrase from screen
+    for (let i = 0; i < oldLetters.length; i++) {
+      ul.removeChild( oldLetters[i] );
+    }
+
+    // Generate a random phrase from the array and save the result
+    let currentPhraseChar = getRandomPhraseArray(phrasesList);
+    // Call the function to add the new random phrase to the DOM
+    addPhraseToDisplay(currentPhraseChar);
+
+  }
 
 const reload = () => {
     window.location.reload();
