@@ -3,6 +3,7 @@ const qwerty = document.getElementById('qwerty');
 const phrase = document.getElementById('phrase');
 const overlay = document.getElementById('overlay');
 const btn__reset = document.getElementById('start');
+const getRandomColor = document.getElementsByTagName('button');
 
 const ul = phrase.firstElementChild;
 const li = ul.children;   // letters in the phrase
@@ -143,6 +144,9 @@ const checkWin = () => {
                 overlay.style.display = 'flex';
                 overlay.classList.add('lose');
                 overlay.appendChild(lose);
+                btn__reset.textContent = 'Try Again';
+                btn__reset.style.backgroundColor = 'white';
+                btn__reset.style.color = 'black';
               }, 700);
   
             }
@@ -151,7 +155,24 @@ const checkWin = () => {
 
 //listen for the start game button to be pressed
 btn__reset.addEventListener('click', () => {
-    overlay.style.display = 'none';
+    // overlay.style.display = 'none';
+    if (overlay.className === 'start') {
+      // 1: Start
+      overlay.classList.remove('start');
+      overlay.style.display = 'none';
+    } else if (overlay.className === 'win') {
+      // 2: Win
+      overlay.removeChild(win);
+      overlay.classList.remove('win');
+      overlay.style.display = 'none';
+    } else if (overlay.className === 'lose') {
+      // 3: Lose
+      overlay.removeChild(lose);
+      overlay.classList.remove('lose');
+      overlay.style.display = 'none';
+    }
+    // Initialize the game
+    init();
 })
 
 //listen for the onscreen keyboard to be clicked
@@ -183,7 +204,7 @@ qwerty.addEventListener('click', function(evt){
   
   });
 
-  const init = () => {
+  function init() {
     missed = 0;
     // reset hearts
     const scoreboard = document.querySelector('#scoreboard').firstElementChild;
