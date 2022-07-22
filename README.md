@@ -9,4 +9,4 @@ I felt most confident initializing a random number and getting the phrase to dis
 
 I had trouble with checking for wins/losses plus re-initializing the game upon one of those cases. It wasn't that I didn't know which variables to call when, it was more, logically, when do I initialize what?
 
-For example, with re-initializing, it took me awhile to realize the best sequence to reset everyhting. Also, it took me quite a bit to realize that I had to add a delay at the end of the game so the animations could finish.
+For example, with re-initializing, it took me awhile to realize the best sequence to reset everything. Also, it took me quite a bit to realize that I had to add a delay at the end of the game so the animations could finish.
